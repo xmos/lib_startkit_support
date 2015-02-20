@@ -2,6 +2,7 @@ TARGET = STARTKIT
 APP_NAME =
 XCC_FLAGS = -g -Os -fno-xta-info
 USED_MODULES = lib_xassert lib_logging lib_startkit_support
+ENABLE_STAGED_BUILD = 0
 
 #=============================================================================
 # The following part of the Makefile includes the common build infrastructure

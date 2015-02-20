@@ -2,6 +2,7 @@ TARGET = STARTKIT
 APP_NAME =
 XCC_FLAGS = -g -O1
 USED_MODULES = lib_i2c lib_startkit_support lib_logging
+ENABLE_STAGED_BUILD = 0
 
 #=============================================================================
 # The following part of the Makefile includes the common build infrastructure
