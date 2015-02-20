@@ -7,7 +7,6 @@
 #define ABSOLUTE_H 1
 
 #include <xs1.h>
-#include "startkit_capsens.h"
 
 #define ABSOLUTE_SLIDER_ELEMENT   1000
 
@@ -44,6 +43,5 @@ void absolute_slider(server absolute_slider_if i, port cap, const clock clk,
                      static const int n_elements,
                      static const int N,
                      int threshold_pressed, int threshold_unpressed);
-
 
 #endif

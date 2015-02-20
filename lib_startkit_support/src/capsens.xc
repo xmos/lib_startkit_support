@@ -6,7 +6,7 @@
 #include <xs1.h>
 #include <print.h>
 #include <stdio.h>
-#include "startkit_capsens.h"
+#include "capsens.h"
 
 void capsenseInitClock(clock k)
 {
@@ -17,7 +17,6 @@ void capsenseInitClock(clock k)
 
 void setupNbit(port cap, const clock k) {
   configure_in_port(cap, k);
-
 }
 
 void measureNbit(port cap, unsigned int times[width],

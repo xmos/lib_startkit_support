@@ -12,6 +12,12 @@ Startkit Absolute API
 .. doxygeninterface:: absolute_slider_if
 .. doxygenfunction:: absolute_slider
 
+Startkit ADC API
+----------------
+
+.. doxygeninterface:: adc_if
+.. doxygenfunction:: adc_task
+
 
 Startkit Slider API
 ---------------------

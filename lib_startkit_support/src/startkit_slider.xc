@@ -7,7 +7,7 @@
 #include <xscope.h>
 #include <print.h>
 #include <stdio.h>
-#include "startkit_capsens.h"
+#include "capsens.h"
 #include "startkit_slider.h"
 
 [[distributable]]

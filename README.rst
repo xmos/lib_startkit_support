@@ -7,8 +7,6 @@ of the STARTKIT development board.
 Features
 ........
 
- * Slider support.
  * ADC support.
- * Capasitive sensing support.
  * GPIO support.
- * Servo support.
+ * Slider support.

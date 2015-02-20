@@ -1,6 +1,6 @@
 #include <print.h>
 #include <xs1.h>
-#include "startkit_capsens.h"
+#include "capsens.h"
 #include "startkit_gpio.h"
 #include "startkit_slider.h"
 

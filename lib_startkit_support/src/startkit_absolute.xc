@@ -1,8 +1,8 @@
 #include <xs1.h>
 #include <stdio.h>
 #include <print.h>
+#include "capsens.h"
 #include "startkit_absolute.h"
-#include "startkit_capsens.h"
 
 [[distributable]]
 void absolute_slider(server absolute_slider_if i, port cap, const clock k,
