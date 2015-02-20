@@ -13,16 +13,24 @@
 typedef enum {IDLE, PRESSED, LEFTING, RIGHTING, RELEASED, PRESSING} sliderstate;
 
 typedef interface slider_query_if {
-/** Function to perform a measurement on the slider and to check if
- * anything has happened. Call this function regularly.
- *
- * \returns one of the activities that may have happened to the slider.
- */
   sliderstate filter();
   int get_coord();
 } slider_query_if;
 
-/** Function to implement a slider.
+[[distributable]]
+void slider(server slider_query_if i, client absolute_slider_if abs);
+
+/** Interface for querying the slider value and state.
+ */
+typedef interface slider_if {
+  [[notification]] slave void changed_state();
+  [[clears_notification]] sliderstate get_slider_state();
+  int get_coord();
+} slider_if;
+
+/** Function to implement a slider task.
+ *
+ * \param i        interface used to communicate with this task.    
  *
  * \param cap      port on which the cap sense is connected
  *
@@ -32,26 +40,18 @@ typedef interface slider_query_if {
  * Note that at present this is hardcoded in the capsens.h file too and set
  * to 4.
  *
+ * \param N
+ *
  * \param threshold_pressed   Value above which something is pressed. Set to 1000
  *
  * \param threshold_unpressed Value below which something is no longer pressed. Set to 200
  */
-[[distributable]]
-void slider(server slider_query_if i, client absolute_slider_if abs);
-
-typedef interface slider_if {
-  [[notification]] slave void changed_state();
-  [[clears_notification]] sliderstate get_slider_state();
-  int get_coord();
-} slider_if;
-
 [[combinable]]
 void slider_task(server slider_if i, port cap, const clock clk,
                  static const int n_elements,
                  static const int N,
-                 int threshold_pressed, int threshold_unpressed);
-
-
+                 int threshold_pressed, 
+                 int threshold_unpressed);
 
 #endif // _SLIDER_H_
 

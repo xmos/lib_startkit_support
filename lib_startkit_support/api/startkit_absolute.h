@@ -11,7 +11,8 @@
 
 #define ABSOLUTE_SLIDER_ELEMENT   1000
 
-
+/** Absolute value of slider interface.
+ */
 typedef interface absolute_slider_if  {
   /** Function that returns where a slider is touched, or 0 if not touched.
    * The return value is a fixed point number with a precision of
@@ -25,13 +26,15 @@ typedef interface absolute_slider_if  {
  * connected to a port with its own clock block, and there are two
  * thresholds to govern press and unpress events.
  *
- * \param cap      port on which the cap sense is connected
+ * \param i        interface used to communicate with this task.
+ *
+ * \param cap      port on which the cap sense is connected.
  *
  * \param clk      clock block to be used.
  * 
  * \param n_elements number of segments on this slider. Typically 4 or 8.
  *
- * \param N          number of samples to make. Must be a multiple of n_elements. 80 is a sensible value if n_elements is 4.
+ * \param N        number of samples to make. Must be a multiple of n_elements. 80 is a sensible value if n_elements is 4.
  * \param threshold_pressed   Value above which something is pressed. Set to 1000
  *
  * \param threshold_unpressed Value below which something is no longer pressed. Set to 200
