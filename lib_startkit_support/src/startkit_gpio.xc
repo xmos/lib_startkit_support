@@ -2,7 +2,7 @@
 #include <xs1.h>
 #include "capsens.h"
 #include "startkit_gpio.h"
-#include "startkit_slider.h"
+#include "slider.h"
 
 /*
  * the patterns for each bit are:

@@ -3,23 +3,15 @@
 // University of Illinois/NCSA Open Source License posted in
 // LICENSE.txt and at <http://github.xcore.com/>
 
-#ifndef _SLIDER_H_
-#define _SLIDER_H_
+#ifndef _STARTKIT_SLIDER_H_
+#define _STARTKIT_SLIDER_H_
 
-#include "startkit_absolute.h"
+#include <xs1.h>
 
 /** Type that enumerates the possible activities that may have happened on
     a slider.
  */
 typedef enum {IDLE, PRESSED, LEFTING, RIGHTING, RELEASED, PRESSING} sliderstate;
-
-typedef interface slider_query_if {
-  sliderstate filter();
-  int get_coord();
-} slider_query_if;
-
-[[distributable]]
-void slider(server slider_query_if i, client absolute_slider_if abs);
 
 /** Interface for querying the slider value and state.
  */
@@ -54,5 +46,5 @@ void slider_task(server slider_if i, port cap, const clock clk,
                  int threshold_pressed, 
                  int threshold_unpressed);
 
-#endif // _SLIDER_H_
+#endif // _STARTKIT_SLIDER_H_
 

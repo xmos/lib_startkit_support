@@ -6,25 +6,11 @@ Software version and dependencies
 API
 ---
 
-Startkit Absolute API
----------------------
-
-.. doxygeninterface:: absolute_slider_if
-.. doxygenfunction:: absolute_slider
-
 Startkit ADC API
 ----------------
 
 .. doxygeninterface:: adc_if
 .. doxygenfunction:: adc_task
-
-
-Startkit Slider API
----------------------
-
-.. doxygenenum:: sliderstate
-.. doxygeninterface:: slider_if
-.. doxygenfunction:: slider_task
 
 Startkit GPIO API
 -----------------
@@ -36,4 +22,11 @@ Startkit GPIO API
 .. doxygenfunction:: startkit_led_driver
 .. doxygenstruct:: startkit_gpio_ports
 .. doxygenfunction:: startkit_gpio_driver
+
+Startkit Slider API
+---------------------
+
+.. doxygenenum:: sliderstate
+.. doxygeninterface:: slider_if
+.. doxygenfunction:: slider_task
 
