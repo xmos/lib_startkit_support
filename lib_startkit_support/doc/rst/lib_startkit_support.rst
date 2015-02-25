@@ -1,11 +1,5 @@
 .. include:: ../../../README.rst
 
-Software version and dependencies
-.................................
-
-API
----
-
 Startkit ADC API
 ----------------
 
@@ -24,7 +18,7 @@ Startkit GPIO API
 .. doxygenfunction:: startkit_gpio_driver
 
 Startkit Slider API
----------------------
+-------------------
 
 .. doxygenenum:: sliderstate
 .. doxygeninterface:: slider_if
