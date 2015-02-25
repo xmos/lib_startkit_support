@@ -26,28 +26,33 @@
 #define ADC_TRIG_DELAY  40        // 400ns minimum high/low time for ADC trigger signal
 #define ADC_TRIG_PORT XS1_PORT_1A // ADC trigger pin. Defined by startKIT hardware
 
-/** ADC Interface
+/** 
+ * ADC Interface
  */
 typedef interface adc_if {
 
-  /** Initiates a trigger sequence. If trigger already in progress, this call is ignored
+  /** 
+   * Initiates a trigger sequence. If trigger already in progress, this call is ignored
    */
   [[guarded]] void trigger(void);
  
-  /** Reads the 4 ADC values and places them in array of unsigned shorts passed.
+  /** 
+   * Reads the 4 ADC values and places them in array of unsigned shorts passed.
    * Value is 0 to 65520 unsigned. Actual ADC is 12b so bottom 4 bits always zero. 
    * Ie. left justified. Optionally returns the ADC state - 1 if ADC 
    * trigger/aquisition complete, or 0 if in progress.
    */
   [[clears_notification]]  int read(unsigned short adc_val[4]);
 
-  /** Call to client to indicate aquisition complete. 
+  /** 
+   * Call to client to indicate aquisition complete. 
    * Behaves a bit like ADC finish interrupt. Optional.
    */
   [[notification]]  slave void complete(void);
 } startkit_adc_if;
 
-/** Runs ADC task. Very low MIPS consumption so is good candidate for combining 
+/** 
+ * Runs ADC task. Very low MIPS consumption so is good candidate for combining 
  * with other low speed tasks Pass i_adc control inteface and automatic trigger 
  * period in microseconds. If trigger period is set to zero, ADC will only convert 
  * on trigger() call.

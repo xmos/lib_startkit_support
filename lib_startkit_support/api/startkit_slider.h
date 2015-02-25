@@ -8,12 +8,13 @@
 
 #include <xs1.h>
 
-/** Type that enumerates the possible activities that may have happened on
-    a slider.
+/** 
+ * Type that enumerates the possible activities that may have happened on a slider.
  */
 typedef enum {IDLE, PRESSED, LEFTING, RIGHTING, RELEASED, PRESSING} sliderstate;
 
-/** Interface for querying the slider value and state.
+/** 
+ * Interface for querying the slider value and state.
  */
 typedef interface slider_if {
   [[notification]] slave void changed_state();
@@ -21,7 +22,8 @@ typedef interface slider_if {
   int get_coord();
 } slider_if;
 
-/** Function to implement a slider task.
+/** 
+ * Function to implement a slider task.
  *
  * \param i        interface used to communicate with this task.    
  *
