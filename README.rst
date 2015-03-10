@@ -1,8 +1,8 @@
-Lib Startkit Support
-====================
+Startkit Support Library
+========================
 
-Lib Startkit Support
---------------------
+Startkit Support Library
+------------------------
 
 This library provides support for accessing the available functionaility
 of the STARTKIT development board.
