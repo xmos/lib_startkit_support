@@ -1,3 +1,4 @@
+// Copyright (c) 2015, XMOS Ltd, All rights reserved
 /*
  *  Created on: Dec 21, 2013
  *  Author: ShannonS

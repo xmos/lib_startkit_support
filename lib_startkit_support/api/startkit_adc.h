@@ -1,7 +1,4 @@
-// Copyright (c) 2011, XMOS Ltd, All rights reserved
-// This software is freely distributable under a derivative of the
-// University of Illinois/NCSA Open Source License posted in
-// LICENSE.txt and at <http://github.xcore.com/>
+// Copyright (c) 2015, XMOS Ltd, All rights reserved
 
 // Contains ADC task and ADC interface definition.
 // Aims to present the U8A/startKIT 12b ADC in an MCU-like manner by abstracting away
@@ -29,7 +26,7 @@
 /** 
  * ADC Interface
  */
-typedef interface adc_if {
+typedef interface startkit_adc_if {
 
   /** 
    * Initiates a trigger sequence. If trigger already in progress, this call is ignored

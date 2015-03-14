@@ -1,7 +1,4 @@
-// Copyright (c) 2011, XMOS Ltd, All rights reserved
-// This software is freely distributable under a derivative of the
-// University of Illinois/NCSA Open Source License posted in
-// LICENSE.txt and at <http://github.xcore.com/>
+// Copyright (c) 2015, XMOS Ltd, All rights reserved
 
 #ifndef _startkit_gpio_h_
 #define _startkit_gpio_h_
@@ -96,7 +93,7 @@ typedef interface startkit_button_if {
  * of its own unless it is connected to clients on a different tile.
  */
 [[distributable]]
-void startkit_led_driver(server startkit_led_if c_led[n], unsigned n, port p32);
+void startkit_led_driver(server startkit_led_if i_led[n], unsigned n, port p32);
 
 /** 
  * Ports/clocks for startkit GPIO, the ports

@@ -1,3 +1,4 @@
+// Copyright (c) 2015, XMOS Ltd, All rights reserved
 #ifndef __game_h__
 #define __game_h__
 #include "startkit_gpio.h"
