@@ -1,12 +1,5 @@
 // Copyright (c) 2015, XMOS Ltd, All rights reserved
 
-/*
- * acelloslice.xc
- *
- *  Created on: 1 Oct 2013
- *      Author: edward
- */
-
 #include "i2c.h"
 #include "ball.h"
 #include <xs1.h>
@@ -19,7 +12,7 @@
  */
 int read_acceleration(client interface i2c_master_if i2c, int reg) {
   int r;
-  i2c_res_t result;
+  i2c_regop_res_t result;
   uint8_t value = i2c.read_reg(0x1D, reg, result);
   r = value << 2;
   value = i2c.read_reg(0x1D, reg+1, result);
@@ -41,7 +34,7 @@ void accelerometer(client ball_if ball, client interface i2c_master_if i2c) {
   data = 0x01;
   i2c.write_reg(0x1D, 0x2A, data);
   while(1) {
-    i2c_res_t result;
+    i2c_regop_res_t result;
     do {
       data = i2c.read_reg(0x1D, 0x00, result);
     } while (!data & 0x08);
