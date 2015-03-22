@@ -1,0 +1,161 @@
+.. include:: ../../README.rst
+
+|newpage|
+
+Overview
+--------
+
+Introduction
+............
+
+startKIT is a low-cost development board for the configurable xCORE
+multicore microcontroller products from XMOS. It's easy to use and
+provides lots of advanced features on a small, extremely low cost
+platform.
+
+xCORE lets you software-configure the interfaces that you need for
+your system; so with startKIT you can configure the board to your
+match your exact requirements. Its 500MIPS xCORE multicore
+microcontroller has eight 32bit logical cores that perform
+deterministically, making startKIT an ideal platform for functions
+ranging from robotics and motion control to networking and digital
+audio.
+
+startKIT also connects easily to your Raspberry Pi, allowing you to
+add real-time I/O and communication features to this popular computing
+platform, and to try out advanced applications for xCORE.
+
+
+A simple LED example
+--------------------
+
+The example in this application note is one of the simplest programs
+you can write for the startKIT. It simple drives an moving pattern
+onto the LEDS on the board.
+
+On the startKIT, the 32-bit port connects to multiple I/O including
+the LEDs. :ref:`startkit_led_connection` shows how the LEDs are
+connected to the port.
+
+.. _startkit_led_connection:
+
+.. figure:: images/led_port.*
+   :width: 60%
+
+   startKIT LED port connection
+
+The LEDs are turned on by driving the port low  and turned off by
+driving the port high.
+
+The Makefile
+............
+
+The Makefile needs to target the startKIT. So has the line::
+
+  TARGET = STARTKIT
+
+All other parts of the Makefile are just the standard build template
+used by XMOS projects.
+
+Application resource declaration
+................................
+
+The only resource used by this application is the 32-bit, this needs
+to be declared in the code:
+
+.. literalinclude:: main.xc
+   :start-on: leds reside
+   :end-on: p32
+
+|newpage|
+
+The application main() function
+...............................
+
+By driving different 32-bit values onto the 32-bit port, different
+patterns will be shown on the LED. The ``patterns`` array in the code
+defines 4 different patterns that can be driven:
+
+.. literalinclude:: main.xc
+   :start-on: NUM_PATTERNS 4
+   :end-on: };
+
+The ``main()`` function of the program justs performs an infinite loop
+that drives this value onto the port.
+
+.. literalinclude:: main.xc
+   :start-on: int main
+
+Looking at this in a more detail you can see the following:
+
+  - The ``<:`` operator is a port output. So
+    ``p32 <: patterns[counter]`` will drive a pattern onto the port.
+  - The ``delay_milliseconds`` function is defined in ``timer.h`` and
+    pauses for the specified number of milliseconds.
+
+
+|appendix|
+|newpage|
+
+Launching the demo application
+------------------------------
+
+Once the demo example has been built either from the command line using
+xmake or via the build mechanism of xTIMEcomposer studio we can execute
+the application on the startKIT.
+
+Once built there will be a ``bin`` directory within the project which
+contains the binary for the xCORE device. The xCORE binary has a XMOS standard 
+.xe extension.
+
+Launching from the command line
+...............................
+
+From the command line we use the ``xrun`` tool to download code to both the
+xCORE devices. If we change into the bin directory of the project
+we can execute the code on the xCORE microcontroller as follows::
+
+> xrun AN00175_startKIT_LED_demo.xe          <-- Download and execute the xCORE code
+
+Once this command has executed the application will be running on the
+startKIT and the LEDs should flash.
+
+Launching from xTIMEcomposer Studio
+...................................
+
+From xTIMEcomposer Studio we use the run mechanism to download code to 
+xCORE device. Select the xCORE binary from the bin directory, right click and
+go to ``Run Configurations``. Double click on xCORE application to create a new
+run configuration and then select Run.
+
+Once this command has executed the application will be running on the
+startKIT. and the LEDs should flash.
+
+|newpage|
+
+References
+----------
+  
+.. nopoints::
+
+  * XMOS Tools User Guide
+
+    http://www.xmos.com/published/xtimecomposer-user-guide
+
+  * XMOS xCORE Programming Guide
+
+    http://www.xmos.com/published/xmos-programming-guide
+
+|newpage|
+
+Full source code listing
+------------------------
+
+Source code for main.xc
+.......................
+
+.. literalinclude:: main.xc
+  :largelisting:
+
+|newpage|
+

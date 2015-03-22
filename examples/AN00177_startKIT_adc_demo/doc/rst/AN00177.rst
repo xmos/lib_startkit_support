@@ -1,0 +1,201 @@
+.. include:: ../../README.rst
+
+|newpage|
+
+Overview
+--------
+
+Introduction
+............
+
+startKIT is a low-cost development board for the configurable xCORE
+multicore microcontroller products from XMOS. It's easy to use and
+provides lots of advanced features on a small, extremely low cost
+platform.
+
+xCORE lets you software-configure the interfaces that you need for
+your system; so with startKIT you can configure the board to your
+match your exact requirements. Its 500MIPS xCORE multicore
+microcontroller has eight 32bit logical cores that perform
+deterministically, making startKIT an ideal platform for functions
+ranging from robotics and motion control to networking and digital
+audio.
+
+startKIT also connects easily to your Raspberry Pi, allowing you to
+add real-time I/O and communication features to this popular computing
+platform, and to try out advanced applications for xCORE.
+
+
+A simple ADC example
+--------------------
+
+The example in this application note shows off using the I/O on the
+startKIT and the use of an XMOS library (in particular the startKIT
+support library).
+
+The example consists of a single application task which connects to
+a GPIO driver task supplied by the startKIT support library and the
+ADC task (also supplied by the startKIT support library). The ADC task
+connects to a special hardware servce to access the ADC.
+
+.. figure:: images/task_diag.*
+   :width: 60%
+
+   Glowing LEDs task diagram
+
+The Makefile
+............
+
+The Makefile needs to target the startKIT. So has the line::
+
+  TARGET = STARTKIT
+
+The startKIT support library also needs to be added to the
+``USED_MODULES`` part of the Makefile::
+
+  USED_MODULE = lib_startkit_support
+
+This will ensure that the startKIT support code is built into the application.
+
+Application resource declaration
+................................
+
+The resource used in the example are the ports used by the startKIT
+support library to access the I/O on the device. These are allocated
+in a structure and are always ports 32A, 4A, 4B and a single clock
+block::
+
+  startkit_gpio_ports gpio_ports =
+    {XS1_PORT_32A, XS1_PORT_4A, XS1_PORT_4B, XS1_CLKBLK_1};
+
+The variable ``gpio_ports`` is then used when calling the startKIT
+gpio driver task.
+
+|newpage|
+
+The application main() function
+...............................
+
+The ``main()`` function sets up three tasks running in parallel:
+
+  - ``app`` will be the main application.
+  - ``startkit_gpio_driver`` is the driver task provided by the
+    startKIT support library.
+  - ``adc_task`` is the ADC driver task provided by the
+    startKIT support library.
+
+Note that the ``startkit_adc`` call in the top-level main of the
+program is not a software task but a hardware *service* that
+communicates over a channel. It also access to the ADC hardware on-chip.
+
+These tasks are connected by three interfaces that allow the application
+to communicate with the startKIT GPIO driver task. Details of these
+interfaces can be found in the startKIT support library user guide.
+The hardware
+service is connected to the ADC task via a channel.
+
+.. literalinclude:: main.xc
+   :start-on: int main
+
+|newpage|
+
+The application task
+....................
+
+The application logic is implemented in the ``app`` task.
+
+.. literalinclude:: main.xc
+   :start-on: void app
+   :end-before: int main
+
+The task consists of an infinite loop that repeated reacts to three
+events via the xC ``select`` statement. The first case reacts to a
+button press, the second to a periodic timer and the third
+case reacts to the completion of the ADC reading a sample.
+
+|newpage|
+
+Other notes that can be seen with respect to the code are:
+
+  - The ``i_button.changed`` event is a notification from the GPIO
+    driver tasks to indicate a button change. It is defined as part of
+    the ``starkit_button_if`` interface.
+  - The ``i_adc.complete`` event is a notification from the ADC
+    driver tasks to indicate that the ADC has completed reading a
+    sample. The call ``i_adc.read`` gets the sample value.
+  - The ``led.set`` call tells teh GPIO driver task to set
+    the output PWM level of an LED in the startKIT 3x3 LED
+    grid. It is a function defined in the ``startkit_led_if``
+    interface.
+  - The ``case t_loop when ...`` event fires when the timer reaches
+    the ``loop_time`` timeout. Every time it fires it will update the
+    timeout making a periodic call. Each time this periodic event
+    fires is will trigger the ADC via the ``i_adc`` interface.
+
+|appendix|
+|newpage|
+
+Launching the demo application
+------------------------------
+
+Once the demo example has been built either from the command line using
+xmake or via the build mechanism of xTIMEcomposer studio we can execute
+the application on the startKIT.
+
+Once built there will be a ``bin`` directory within the project which
+contains the binary for the xCORE device. The xCORE binary has a XMOS
+standard .xe extension.
+
+Launching from the command line
+...............................
+
+From the command line we use the ``xrun`` tool to download code to both the
+xCORE devices. If we change into the bin directory of the project
+we can execute the code on the xCORE microcontroller as follows::
+
+> xrun --xscope AN00177_startKIT_adc_demo.xe          <-- Download and execute the xCORE code
+
+Once this command has executed the application will be running on the
+startKIT. Touch the ADC0..ADC3 pads/pins in the bottom left hand
+corner to light the LEDs. The values are also printed to the console.
+
+Launching from xTIMEcomposer Studio
+...................................
+
+From xTIMEcomposer Studio we use the run mechanism to download code to 
+xCORE device. Select the xCORE binary from the bin directory, right click and
+go to ``Run Configurations``. Double click on xCORE application to create a new
+run configuration, enable **xSCOPE I/O** and then select Run.
+
+Once this command has executed the application will be running on the
+startKIT. Touch the ADC0..ADC3 pads/pins in the bottom left hand
+corner to light the LEDs. The values are also printed to the console.
+
+|newpage|
+
+References
+----------
+  
+.. nopoints::
+
+  * XMOS Tools User Guide
+
+    http://www.xmos.com/published/xtimecomposer-user-guide
+
+  * XMOS xCORE Programming Guide
+
+    http://www.xmos.com/published/xmos-programming-guide
+
+|newpage|
+
+Full source code listing
+------------------------
+
+Source code for main.xc
+.......................
+
+.. literalinclude:: main.xc
+  :largelisting:
+
+|newpage|
+
