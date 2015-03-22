@@ -275,5 +275,5 @@ Parties
       non-exclusive jurisdiction of the English courts.
 
 Schedule
-XMOS Startkit support library sofware
+XMOS application note AN00175 software
 No license fee.
