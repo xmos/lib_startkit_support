@@ -10,6 +10,7 @@
 #define LOOP_PERIOD     20000000    //Trigger ADC and print results every 200ms
 
 startkit_gpio_ports gpio_ports = {XS1_PORT_32A, XS1_PORT_4A, XS1_PORT_4B, XS1_CLKBLK_1}; //LEDs/SW, sliders, clock
+out port adc_sample = ADC_TRIG_PORT;
 
 
 void app(client startkit_led_if i_leds, client startkit_button_if i_button, client startkit_adc_if i_adc)
@@ -88,7 +89,7 @@ int main()
     on tile[0].core[0]: startkit_gpio_driver(i_led, i_button,//Run GPIO task for leds/button
                                              null, null,
                                              gpio_ports);
-    on tile[0].core[0]: adc_task(i_adc, c_adc, 0);           //Run ADC server task (on same core as GPIO!)
+    on tile[0].core[0]: adc_task(i_adc, c_adc, 0, adc_sample); //Run ADC server task (on same core as GPIO!)
     startkit_adc(c_adc);                                     //Declare the ADC service (this is the ADC
                                                              //hardware, not a task)
     on tile[0]: app(i_led, i_button, i_adc);                 //Run the app

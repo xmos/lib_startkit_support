@@ -192,12 +192,14 @@ and connects to it::
   #include <platform.h>
   #include <startkit_adc.h>
 
+  out port adc_sample = ADC_TRIG_PORT;
+
   int main() {
     chan c_adc;
     interface startkit_adc_if i_adc;
     par {
       startkit_adc(c_adc);
-      on tile[0]: adc_task(i_adc, c_adc, 0);
+      on tile[0]: adc_task(i_adc, c_adc, 0, adc_sample);
       on tile[0]: app(i_adc);
     }
   }

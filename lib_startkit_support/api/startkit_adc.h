@@ -55,6 +55,6 @@ typedef interface startkit_adc_if {
  * on trigger() call.
  */
 [[combinable]]
-void adc_task(server startkit_adc_if i_adc, chanend c_adc, int trigger_period);
+void adc_task(server startkit_adc_if i_adc, chanend c_adc, int trigger_period, out port adc_sample);
 
 #endif /* ADC_H_ */

@@ -6,8 +6,6 @@
 #include <print.h>
 #include "startkit_adc.h"
 
-out port adc_sample = ADC_TRIG_PORT;            //Trigger port for ADC - defined in STARTKIT.xn
-
 #pragma select handler                          //Special function to allow select on inuint primative
 void get_adc_data(chanend c_adc, unsigned &data){
     data = inuint(c_adc);                       //Get ADC packet one (2 x 16b samps)
@@ -24,7 +22,7 @@ static void init_adc_network(void) {
      }
 }
 
-static void init_adc_periph(chanend c) { //Configures the ADC peripheral for this application
+static void init_adc_periph(chanend c, out port adc_sample) { //Configures the ADC peripheral for this application
      unsigned data[1], time;
 
      data[0] = 0x0;                               //Switch ADC off initially
@@ -56,7 +54,7 @@ static void init_adc_periph(chanend c) { //Configures the ADC peripheral for thi
 }
 
 [[combinable]]
-void adc_task(server startkit_adc_if i_adc, chanend c_adc, int trigger_period){
+void adc_task(server startkit_adc_if i_adc, chanend c_adc, int trigger_period, out port adc_sample){
   unsigned adc_state = 0;                 //State machine. 0 = idle, 1-8 = generating triggers, 9 = rx data
   unsigned adc_samps[2] = {0, 0};         //The samples (2 lots of 16 bits packed into to unsigned ints)
   int trig_pulse_time;                    //Used to time individual edges for trigger
@@ -65,7 +63,7 @@ void adc_task(server startkit_adc_if i_adc, chanend c_adc, int trigger_period){
   timer t_trig_periodic;                  //Timer for periodic ADC trigger
 
   init_adc_network();                     //Ensure it works in flash as well as run/debug
-  init_adc_periph(c_adc);                 //Setup the ADC
+  init_adc_periph(c_adc, adc_sample);     //Setup the ADC
 
   trigger_period *= 100;                  //Comvert to microseconds
 
