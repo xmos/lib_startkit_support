@@ -43,13 +43,13 @@ Resource usage
     - ports: 1 (32-bit), 2 (4-bit)
 
   * - configuration: ADC
-    - globals: int x; out port adc_sample = ADC_TRIG_PORT;
+    - globals: out port adc_sample = ADC_TRIG_PORT;
     - target: STARTKIT
     - flags:
     - locals: interface startkit_adc_if i_adc; chan c_adc;
     - fn: adc_task(i_adc, c_adc, 10, adc_sample);
-    - pins: 4
-    - ports: 0
+    - pins: 5
+    - ports: 1 (1-bit)
 
   * - configuration: Cap-sense slider
     - globals: port p = XS1_PORT_32A; clock clk = XS1_CLKBLK_1;
