@@ -88,7 +88,7 @@ port p_sda = XS1_PORT_1I;
 
 /* The ports for leds/button/capsense */
 startkit_gpio_ports gpio_ports =
-  {XS1_PORT_32A, XS1_PORT_4A, XS1_PORT_4B, XS1_CLKBLK_1};
+  {XS1_PORT_32A, XS1_PORT_4B, XS1_PORT_4A, XS1_CLKBLK_1};
 
 int main(void) {
   // These interfaces connect the tasks below together

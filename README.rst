@@ -31,7 +31,7 @@ Resource usage
     - ports: 1 (32-bit)
 
   * - configuration: LED, buttons and cap-sense
-    - globals: startkit_gpio_ports p = {XS1_PORT_32A, XS1_PORT_4A, XS1_PORT_4B, XS1_CLKBLK_1};
+    - globals: startkit_gpio_ports p = {XS1_PORT_32A, XS1_PORT_4B, XS1_PORT_4A, XS1_CLKBLK_1};
     - target: STARTKIT
     - flags:
     - locals: interface startkit_led_if i_led;

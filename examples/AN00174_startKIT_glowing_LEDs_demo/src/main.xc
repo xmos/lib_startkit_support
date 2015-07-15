@@ -56,7 +56,7 @@ static void glow_app(client startkit_led_if leds,
 
 
 startkit_gpio_ports gpio_ports =
-  {XS1_PORT_32A, XS1_PORT_4A, XS1_PORT_4B, XS1_CLKBLK_1};
+  {XS1_PORT_32A, XS1_PORT_4B, XS1_PORT_4A, XS1_CLKBLK_1};
 
 // 'main' sets up the system, consisting of two tasks - one to drive
 // the i/o and one to run the application that communicates with that

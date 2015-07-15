@@ -111,7 +111,7 @@ void drive_ball(client slider_if i_slider_x,
 
 /* This the port where the leds reside */
 startkit_gpio_ports gpio_ports =
-  {XS1_PORT_32A, XS1_PORT_4A, XS1_PORT_4B, XS1_CLKBLK_1};
+  {XS1_PORT_32A, XS1_PORT_4B, XS1_PORT_4A, XS1_CLKBLK_1};
 
 int main(void) {
   // These interfaces connect the tasks below together

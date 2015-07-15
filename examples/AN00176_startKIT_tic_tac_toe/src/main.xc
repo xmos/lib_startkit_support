@@ -71,7 +71,7 @@
 
 // The port structure required for the GPIO task
 startkit_gpio_ports gpio_ports =
-  {XS1_PORT_32A, XS1_PORT_4A, XS1_PORT_4B, XS1_CLKBLK_1};
+  {XS1_PORT_32A, XS1_PORT_4B, XS1_PORT_4A, XS1_CLKBLK_1};
 
 int main() {
   startkit_button_if i_button;

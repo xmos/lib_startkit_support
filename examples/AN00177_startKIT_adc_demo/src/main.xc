@@ -9,7 +9,7 @@
 
 #define LOOP_PERIOD     20000000    //Trigger ADC and print results every 200ms
 
-startkit_gpio_ports gpio_ports = {XS1_PORT_32A, XS1_PORT_4A, XS1_PORT_4B, XS1_CLKBLK_1}; //LEDs/SW, sliders, clock
+startkit_gpio_ports gpio_ports = {XS1_PORT_32A, XS1_PORT_4B, XS1_PORT_4A, XS1_CLKBLK_1}; //LEDs/SW, sliders, clock
 out port adc_sample = ADC_TRIG_PORT;
 
 

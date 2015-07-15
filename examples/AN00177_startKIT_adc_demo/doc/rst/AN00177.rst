@@ -62,11 +62,11 @@ Application resource declaration
 
 The resource used in the example are the ports used by the startKIT
 support library to access the I/O on the device. These are allocated
-in a structure and are always ports 32A, 4A, 4B and a single clock
+in a structure and are always ports 32A, 4B, 4A and a single clock
 block::
 
   startkit_gpio_ports gpio_ports =
-    {XS1_PORT_32A, XS1_PORT_4A, XS1_PORT_4B, XS1_CLKBLK_1};
+    {XS1_PORT_32A, XS1_PORT_4B, XS1_PORT_4A, XS1_CLKBLK_1};
 
 The variable ``gpio_ports`` is then used when calling the startKIT
 gpio driver task.

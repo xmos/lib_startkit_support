@@ -97,7 +97,7 @@ void startkit_led_driver(server startkit_led_if i_led[n], unsigned n, port p32);
 
 /** 
  * Ports/clocks for startkit GPIO, the ports
- * should be XS1_PORT_32A, XS1_PORT_4A, XS1_PORT_4B.
+ * should be XS1_PORT_32A, XS1_PORT_4B, XS1_PORT_4A.
  */
 typedef struct startkit_gpio_ports
 {
