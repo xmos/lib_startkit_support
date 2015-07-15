@@ -8,7 +8,7 @@
 /** 
  * Type that enumerates the possible activities that may have happened on a slider.
  */
-typedef enum {IDLE, PRESSED, LEFTING, RIGHTING, RELEASED, PRESSING} sliderstate;
+typedef enum {IDLE, PRESSING, PRESSED, LEFTING, RIGHTING, RELEASED} sliderstate;
 
 /** 
  * Interface for querying the slider value and state.

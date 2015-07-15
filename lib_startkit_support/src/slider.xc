@@ -86,7 +86,6 @@ void slider(server slider_query_if i, client absolute_slider_if abs)
       int coord;
       unsigned time, timePassed;
       timer tt;
-      ret = IDLE;
 
       tt :> time;
       timePassed = time - lastTime;
@@ -106,15 +105,16 @@ void slider(server slider_query_if i, client absolute_slider_if abs)
           int ms = timePassed / 100000;
           int speed = (coord - prev_coord)*1000/ms;
           //            printf("%3d %08x coord %4d speed %7d %2d %2d %2d\n", ms, cap, coord, speed, lefts, rights, nomoves);
-          if (speed > 5000) {
+          const int MinSpeed = 500;
+          if (speed > MinSpeed) {
             nomoves--;
             lefts--;
             rights+=2;
-          } else if (speed < -5000) {
+          } else if (speed < -MinSpeed) {
             lefts+=2;
             nomoves--;
             rights--;
-          } else if (speed < 2000 && speed > -2000) {
+          } else if (speed < MinSpeed/2 && speed > -MinSpeed/2) {
             lefts--;
             rights--;
             nomoves+=2;
@@ -122,19 +122,18 @@ void slider(server slider_query_if i, client absolute_slider_if abs)
           //            printf("%d %d %d\n", lefts, rights, nomoves);
           lastTime = time;
           prev_coord = coord;
-          //     if (nomoves > lefts+3 && nomoves > rights+3 || abs(lefts - rights) < 3 && (lefts+rights) > 15) {
-          //             state = PRESSED;
-          //             ret = PRESSED;
-          //         }
+          int diff = lefts - rights;
+          if (diff < 0) diff = -diff;
+          if ((nomoves > lefts+3 && nomoves > rights+3) || (diff < 3 && (lefts+rights) > 15)) {
+            state = PRESSED;
+          }
           if (rights > 6) {
             //                printf("Left\n");
             state = LEFTING;
-            ret = LEFTING;
           }
           if (lefts > 6) {
             //                printf("Right\n");
             state = RIGHTING;
-            ret = RIGHTING;
           }
         } else if (timePassed > 20000000 && !coord) {
           state = IDLE;
@@ -146,15 +145,17 @@ void slider(server slider_query_if i, client absolute_slider_if abs)
       case LEFTING:
       case RIGHTING:
         if (!coord && (time - lastTime) > 10000000) {
-          state = IDLE;
           lastTime = time;
-          ret = RELEASED;
+          state = RELEASED;
         }
         break;
       case RELEASED:
-        // not reached
+        if ((time - lastTime) > 10000000) {
+          state = IDLE;
+        }
         break;
       }
+      ret = state;
       break;
     }
   }
