@@ -23,9 +23,13 @@ typedef interface startkit_led_if  {
   /** 
    * Set an led output level.
    *
-   * Use this function to set a single led in the range LED_OFF .. LED_ON
+   * Use this function to set a single led in the range LED_OFF .. LED_ON.
+   *
+   * 'x' takes a value 0,1,2 which refer to columns A,B,C.
+   *
+   * 'y' takes a value 0,1,2 which refer to rows 1,2,3.
    */
-  void set(unsigned row, unsigned col, unsigned val);
+  void set(unsigned x, unsigned y, unsigned val);
 
   /** 
    * Set multiple led values.
@@ -34,9 +38,10 @@ typedef interface startkit_led_if  {
    * The first argument is a bitmask where the least signifcant nine
    * bits map to the led array in the following way:
    *
-   *       8 7 6
-   *       5 4 3
-   *       2 1 0
+   *    bit = (x + y*3)
+   *
+   * Where 'x' takes a value 0,1,2 which refer to columns A,B,C
+   * and 'y' takes a value 0,1,2 which refer to rows 1,2,3.
    *
    * If the bit is set in the mask then the led is set to the second argument.
    * If the bit is not set then the led is set to LED_OFF.

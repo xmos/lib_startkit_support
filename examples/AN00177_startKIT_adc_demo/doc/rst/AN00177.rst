@@ -123,7 +123,7 @@ Other notes that can be seen with respect to the code are:
   - The ``i_adc.complete`` event is a notification from the ADC
     driver tasks to indicate that the ADC has completed reading a
     sample. The call ``i_adc.read`` gets the sample value.
-  - The ``led.set`` call tells teh GPIO driver task to set
+  - The ``led.set`` call tells the GPIO driver task to set
     the output PWM level of an LED in the startKIT 3x3 LED
     grid. It is a function defined in the ``startkit_led_if``
     interface.

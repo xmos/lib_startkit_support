@@ -12,7 +12,7 @@
   The 3x3 display of LEDs shows the board status:
 
     - Full LEDs: user player (marking a O)
-    - Dimmed LEDs: computer player (marking a 1)
+    - Dimmed LEDs: computer player (marking a X)
 
   When it is the user's move, one of the LEDs flashes - this is a cursor and
   it can be moved by swiping the sliders. Pressing the button makes a move,

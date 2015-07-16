@@ -31,14 +31,14 @@ void app(client startkit_led_if i_leds, client startkit_button_if i_button, clie
       if (i_button.get_value() == BUTTON_DOWN) {
           printstrln("Button pressed!");
           i_leds.set(2, 2, LED_ON);
-          i_leds.set(1, 2, LED_ON);
-          i_leds.set(0, 2, LED_ON);
+          i_leds.set(2, 1, LED_ON);
+          i_leds.set(2, 0, LED_ON);
       }
       else {
           printstrln("Button released!");
           i_leds.set(2, 2, LED_OFF);
-          i_leds.set(1, 2, LED_OFF);
-          i_leds.set(0, 2, LED_OFF);
+          i_leds.set(2, 1, LED_OFF);
+          i_leds.set(2, 0, LED_OFF);
       }
       break;
                                 //Loop timeout event
@@ -60,13 +60,13 @@ void app(client startkit_led_if i_leds, client startkit_button_if i_button, clie
             i_leds.set(1, 1, adc_val[i]);
             break;
           case 1:
-            i_leds.set(2, 0, adc_val[i]);
+            i_leds.set(0, 2, adc_val[i]);
             break;
           case 2:
-            i_leds.set(0, 1, adc_val[i]);
+            i_leds.set(1, 0, adc_val[i]);
             break;
           case 3:
-            i_leds.set(1, 0, adc_val[i]);
+            i_leds.set(0, 1, adc_val[i]);
             break;
           }
         }

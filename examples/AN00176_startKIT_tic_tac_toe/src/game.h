@@ -24,7 +24,7 @@ typedef interface player_if {
   void get_board(char board[3][3]);
 
   // Set the user cursor to the specified position.
-  void set_cursor(unsigned row, unsigned col);
+  void set_cursor(unsigned x, unsigned y);
 
   // Clear the user cursor from the board.
   void clear_cursor();
@@ -39,7 +39,7 @@ typedef interface player_if {
 
   // This function is called by the player to make a move in the specified
   // position.
-  [[clears_notification]] void play(unsigned row, unsigned col);
+  [[clears_notification]] void play(unsigned x, unsigned y);
 } player_if;
 
 // This task controls the game state providing two connections to the

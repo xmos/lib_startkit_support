@@ -7,9 +7,10 @@
 
 /*
  * the patterns for each bit are:
- *   0x80000 0x40000 0x20000
- *   0x01000 0x00800 0x00400
- *   0x00200 0x00100 0x00080
+          'A'     'B'     'C'
+ *  '1' 0x80000 0x40000 0x20000
+ *  '2' 0x01000 0x00800 0x00400
+ *  '3' 0x00200 0x00100 0x00080
  *
  * As the leds go to 3V3, 0x00000 drives all 9 leds on, and 0xE1F80 drives
  * all nine leds off.
@@ -31,26 +32,26 @@ void startkit_led_driver(server startkit_led_if c_led[n], unsigned n, port p32)
   p32 <: data;
   while (1) {
     select {
-    case c_led[int i].set(unsigned row, unsigned col, unsigned val):
+    case c_led[int i].set(unsigned x, unsigned y, unsigned val):
       // We are setting the leds in a discrete (on/off) way.
       // Just look at the top bit to determine if the value is > LED_ON/2
       val >>= 31;
       // Clear the bit for this led
-      data &= ~map[row][col];
+      data &= ~map[y][x];
       // Set the bit for this led (depending on the value)
-      data |= val ? 0 : map[row][col];
+      data |= val ? 0 : map[y][x];
       // Output the new data value onto the port for all leds
       p32 <: data;
       break;
     case c_led[int i].set_multiple(unsigned mask, unsigned val):
       val >>= 31;
-      // Iterate through all leds from right to left, bottom to top
-      // shifting through thee mask from right to left
-      for (int row = 2; row >= 0; row--) {
-        for (int col = 2; col >= 0; col--) {
+      // Iterate through all leds from left to right, top to bottom
+      // shifting through the mask from lsb to msb.
+      for (int y = 0; y < 3; ++y) {
+        for (int x = 0; x < 3; ++x) {
           // Depending on the mask and the value set the bit for this led
-          data &= ~map[row][col];
-          data |= (val & (mask & 1))  ? 0 : map[row][col];
+          data &= ~map[y][x];
+          data |= (val & (mask & 1))  ? 0 : map[y][x];
           mask >>= 1;
         }
       }
@@ -146,16 +147,15 @@ void startkit_led_driver(server startkit_led_if c_led[n], unsigned n, port p32)
       }
       // Create the output for this phase in the pwm
       unsigned data = 0xffffffff;
-      for (int row = 0; row < 3; row++) {
-        for (int col = 0; col < 3; col++) {
+      for (int y = 0; y < 3; ++y) {
+        for (int x = 0; x < 3; ++x) {
           // If the led level is higher than the current
           // phase of the pwm then clear that bit (i.e. drive the led)
-          if (pwm_res - count < level[row][col]) {
-            data &= ~map[row][col];
+          if (pwm_res - count < level[y][x]) {
+            data &= ~map[y][x];
           }
         }
       }
-      // Output the combined led data
       p32 <: data;
       // Set up the next event
       tmr :> time;
@@ -168,22 +168,20 @@ void startkit_led_driver(server startkit_led_if c_led[n], unsigned n, port p32)
       break;
 
     // Case handling a client request to set an output level
-    case !isnull(i_led) => i_led.set(unsigned row, unsigned col,
-                                     unsigned val):
+    case !isnull(i_led) => i_led.set(unsigned x, unsigned y, unsigned val):
       // Scale the level to the output resolution of the pwm
-      level[row][col] = val / (LED_ON / pwm_res);
+      level[y][x] = val / (LED_ON / pwm_res);
       break;
 
     // Case handling a client request to set multiple output levels
-    case !isnull(i_led) => i_led.set_multiple(unsigned mask,
-                                              unsigned val):
+    case !isnull(i_led) => i_led.set_multiple(unsigned mask, unsigned val):
       // Scale the level to the output resolution of the pwm
       val = val / (LED_ON / pwm_res);
 
       // Iterate though the led array setting the level depending on the mask
-      for (int row = 2; row >= 0; row--) {
-        for (int col = 2; col >= 0; col--) {
-          level[row][col] = (mask & 1) ? val : 0;
+      for (int y = 0; y < 3; ++y) {
+        for (int x = 0; x < 3; ++x) {
+          level[y][x] = (mask & 1) ? val : 0;
           mask >>= 1;
         }
       }

@@ -63,10 +63,10 @@ e.g.::
  void app(client startkit_led_if led)
  {
    ...
-   // Set the middle LED (row 1, col 1) on
-   led.set(1, 1, LED_ON);
-   // Set the top left LED (row 0, col 0) off
-   led.set(0, 0, LED_OFF);
+   // Set the top middle LED (x=1, y=0) on
+   led.set(1, 0, LED_ON);
+   // Set the bottom left LED (x=0, y=2) off
+   led.set(0, 2, LED_OFF);
    ...
 
 Controlling LEDs, buttons and capacitive sensing together

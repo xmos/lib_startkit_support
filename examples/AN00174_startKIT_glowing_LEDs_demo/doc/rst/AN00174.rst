@@ -107,7 +107,7 @@ Other notes that can be seen with respect to the code are:
   - The ``button.changed`` event is a notification from the GPIO
     driver tasks to indicate a button change. It is defined as part of
     the ``starkit_button_if`` interface.
-  - The ``led.set_multiple`` call tells teh GPIO driver task to set
+  - The ``led.set_multiple`` call tells the GPIO driver task to set
     the output PWM level of several LEDS in the startKIT 3x3 LED
     grid. It is a function defined in the ``startkit_led_if``
     interface.

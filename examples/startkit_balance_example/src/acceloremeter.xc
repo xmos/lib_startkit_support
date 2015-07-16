@@ -39,9 +39,9 @@ void accelerometer(client ball_if ball, client interface i2c_master_if i2c) {
       data = i2c.read_reg(0x1D, 0x00, result);
     } while (!data & 0x08);
     int x, y, z;
-    x = read_acceleration(i2c, 1);
+    x = read_acceleration(i2c, 5);
     y = read_acceleration(i2c, 3);
-    z = read_acceleration(i2c, 5);
+    z = read_acceleration(i2c, 1);
 
     // Once the position is read use it to set the ball position
     ball.new_position(x, y, z);
