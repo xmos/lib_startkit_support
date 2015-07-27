@@ -65,7 +65,7 @@ void adc_task(server startkit_adc_if i_adc, chanend c_adc, int trigger_period, o
   init_adc_network();                     //Ensure it works in flash as well as run/debug
   init_adc_periph(c_adc, adc_sample);     //Setup the ADC
 
-  trigger_period *= 100;                  //Comvert to microseconds
+  trigger_period *= 100;                  //Convert microseconds to ticks (10ns)
 
   if(trigger_period){
       t_trig_periodic :> trig_period_time;//Get current time. Will cause immediate trigger
