@@ -1,4 +1,4 @@
-// Copyright (c) 2015, XMOS Ltd, All rights reserved
+// Copyright (c) 2016, XMOS Ltd, All rights reserved
 
 // Contains ADC task and ADC interface definition.
 // Aims to present the U8A/startKIT 12b ADC in an MCU-like manner by abstracting away
