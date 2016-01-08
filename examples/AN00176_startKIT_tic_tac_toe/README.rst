@@ -1,7 +1,7 @@
 A startKIT tic-tac-toe demo
 ===========================
 
-.. version:: 1.0.0
+.. version:: 1.0.1
 
 Summary
 -------
