@@ -1,11 +1,12 @@
-Startkit support library
-========================
+OBSOLETE: Startkit support library
+==================================
 
 Summary
 -------
 
-This library provides support for accessing the available functionaility
-of the startKIT development board.
+This library provided support for accessing the available functionaility of the startKIT development board.
+This board has reached end-of-life.
+This repository is no longer maintained.
 
 Features
 ........
